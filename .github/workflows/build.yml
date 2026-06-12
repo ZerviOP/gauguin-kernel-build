@@ -1,0 +1,33 @@
+name: Build Kernel
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Build Kernel
+        uses: dabao1955/kernel_build_action@main
+        with:
+          kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
+          kernel-branch: lineage-23.2
+
+          config: vendor/lito-perf_defconfig
+          arch: arm64
+
+          android-version: 16
+
+          aosp-clang: true
+          aosp-gcc: true
+
+          anykernel3: true
+
+          ksu: true
+
+          release: true
+          access-token: ${{ secrets.GITHUB_TOKEN }}
