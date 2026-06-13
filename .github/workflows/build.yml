@@ -17,15 +17,12 @@ jobs:
           kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
           kernel-branch: lineage-23.2
 
-          config: vendor/lito-perf_defconfig
+          config: lito-perf_defconfig
           arch: arm64
-
-          android-version: 16
-
-          aosp-clang: false
-          other-clang-url: https://github.com/kdrag0n/proton-clang
-          other-clang-branch: master
-          aosp-gcc: true
+aosp-gcc: true
+          aosp-clang: true
+        
+          
 
           anykernel3: false
 
