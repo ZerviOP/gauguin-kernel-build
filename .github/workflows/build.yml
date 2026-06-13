@@ -19,11 +19,8 @@ jobs:
 
           config: lito-perf_defconfig
           arch: arm64
-aosp-gcc: true
+          aosp-gcc: true
           aosp-clang: true
-        
-          
-
           anykernel3: false
 
           ksu: true
