@@ -1,40 +1,24 @@
-name: Build Kernel
+name: CI
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-kernel:
+    name: Build Kernel
     runs-on: ubuntu-22.04
-
     steps:
-      - name: Checkout Kernel Source
-        uses: actions/checkout@v4
+      - name: Build
+        uses: dabao1955/kernel_build_action@main
         with:
-          submodules: recursive
-
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            bc bison build-essential curl flex git \
-            libelf-dev libssl-dev make python3 \
-            device-tree-compiler cpio kmod \
-            gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi \
-            llvm lld clang
-
-      # =======================
-      # CLANG CACHE (FAST BUILD)
-      # =======================
-      - name: Cache Clang
-        uses: actions/cache@v4
-        with:
-          path: clang
-          key: clang-r547379-ubuntu-22.04
-
-      - name: Download Official AOSP Clang (if missing)
-        run: |
-          if [ ! -d clang/bin ]; then
+          kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
+          kernel-branch: lineage-23.2
+          config: lito-perf_defconfig
+          arch: arm64
+          aosp-gcc: true
+          aosp-clang: true
+          android-version: 12
+          aosp-clang-version: r383902          if [ ! -d clang/bin ]; then
             mkdir -p clang
             wget -q -O clang.tar.gz \
               https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz
