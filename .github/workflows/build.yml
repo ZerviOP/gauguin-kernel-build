@@ -15,8 +15,8 @@ jobs:
           kernel-branch: lineage-23.2
           config: lito-perf_defconfig
           arch: arm64
-          aosp-gcc: true
-          aosp-clang: true
-          android-version: 12
-          aosp-clang-version: r383902
+          aosp-gcc: false
+          aosp-clang: false
+          
+        
           
