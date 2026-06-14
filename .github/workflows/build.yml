@@ -6,7 +6,7 @@ on:
 jobs:
   build-kernel:
     name: Build Kernel
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Build
         uses: dabao1955/kernel_build_action@main
@@ -23,5 +23,5 @@ jobs:
           ksu: true
           ksu-other: true
           ksu-version: builtin
-          ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra/tree/builtin
+          ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra
           
