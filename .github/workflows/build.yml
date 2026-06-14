@@ -22,6 +22,6 @@ jobs:
           anykernel3: true
           ksu: true
           ksu-other: true
-          ksu-version: legacy 
-          ksu-url: https://github.com/KernelSU-Next/KernelSU-Next
+          ksu-version: old 
+          ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra
           
