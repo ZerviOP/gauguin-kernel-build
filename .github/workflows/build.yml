@@ -20,7 +20,7 @@ jobs:
           config: lito-perf_defconfig
           arch: arm64
           aosp-gcc: true
-          aosp-clang: false
+          android-version: 14
           anykernel3: false
 
           ksu: true
