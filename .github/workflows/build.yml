@@ -8,12 +8,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout Workflow Repo
+      - name: Checkout Kernel Source
         uses: actions/checkout@v4
-
-      - name: Clone Kernel Source
-        run: |
-          git clone --depth=1 -b lineage-23.2 https://github.com/ZerviOP/android_kernel_xiaomi_gauguin kernel
+        with:
+          submodules: recursive
 
       - name: Install Dependencies
         run: |
@@ -22,21 +20,39 @@ jobs:
             bc bison build-essential curl flex git \
             libelf-dev libssl-dev make python3 \
             device-tree-compiler cpio kmod \
-            gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi
+            gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi \
+            llvm lld clang
 
-      - name: Download Official AOSP Clang
+      # =======================
+      # CLANG CACHE (FAST BUILD)
+      # =======================
+      - name: Cache Clang
+        uses: actions/cache@v4
+        with:
+          path: clang
+          key: clang-r547379-ubuntu-22.04
+
+      - name: Download Official AOSP Clang (if missing)
         run: |
-          mkdir -p clang
-          wget -O clang.tar.gz \
-            https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz
-          tar -xf clang.tar.gz -C clang
+          if [ ! -d clang/bin ]; then
+            mkdir -p clang
+            wget -q -O clang.tar.gz \
+              https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz
+            tar -xf clang.tar.gz -C clang
+          fi
 
+      # =======================
+      # BUILD DEFCONFIG
+      # =======================
       - name: Build Defconfig
         run: |
           export PATH=$GITHUB_WORKSPACE/clang/bin:$PATH
           cd kernel
           make O=out ARCH=arm64 vendor/lito-perf_defconfig
 
+      # =======================
+      # BUILD KERNEL
+      # =======================
       - name: Build Kernel
         run: |
           export PATH=$GITHUB_WORKSPACE/clang/bin:$PATH
@@ -45,6 +61,8 @@ jobs:
           make O=out \
             ARCH=arm64 \
             CC=clang \
+            LLVM=1 \
+            LLVM_IAS=1 \
             CROSS_COMPILE=aarch64-linux-gnu- \
             CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
             AR=llvm-ar \
@@ -55,6 +73,9 @@ jobs:
             LD=ld.lld \
             -j$(nproc --all)
 
+      # =======================
+      # UPLOAD RESULT
+      # =======================
       - name: Upload Kernel
         uses: actions/upload-artifact@v4
         with:
