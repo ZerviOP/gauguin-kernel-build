@@ -1,0 +1,27 @@
+name: CI-sukisu(no-susfs)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-kernel:
+    name: Build Kernel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: dabao1955/kernel_build_action@main
+        with:
+          kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
+          kernel-branch: lineage-23.2
+          config: vendor/lito-perf_defconfig
+          arch: arm64
+          aosp-gcc: true
+          aosp-clang: true
+          android-version: 12
+          aosp-clang-version: r416183b     
+          anykernel3: true
+          ksu: true
+          ksu-other: true
+          ksu-version: builtin
+          ksu-url: https://github.com/ZerviOP/SukiSU-Ultra
+          
