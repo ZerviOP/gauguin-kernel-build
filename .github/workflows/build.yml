@@ -18,9 +18,10 @@ jobs:
           aosp-gcc: true
           aosp-clang: true
           android-version: 12
-          aosp-clang-version: r383902     
+          aosp-clang-version: r584948b     
           anykernel3: true
           ksu: true
           ksu-other: true
+          ksu-version: builtin
           ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra/tree/builtin
-          release: true
+          
