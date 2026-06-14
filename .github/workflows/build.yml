@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout Kernel Source
+      - name: Checkout Workflow Repo
         uses: actions/checkout@v4
+
+      - name: Clone Kernel Source
+        run: |
+          git clone --depth=1 -b lineage-23.2 https://github.com/ZerviOP/android_kernel_xiaomi_gauguin kernel
 
       - name: Install Dependencies
         run: |
@@ -30,11 +34,13 @@ jobs:
       - name: Build Defconfig
         run: |
           export PATH=$GITHUB_WORKSPACE/clang/bin:$PATH
+          cd kernel
           make O=out ARCH=arm64 vendor/lito-perf_defconfig
 
       - name: Build Kernel
         run: |
           export PATH=$GITHUB_WORKSPACE/clang/bin:$PATH
+          cd kernel
 
           make O=out \
             ARCH=arm64 \
@@ -54,5 +60,5 @@ jobs:
         with:
           name: kernel
           path: |
-            out/arch/arm64/boot/Image*
-            out/arch/arm64/boot/dtb*
+            kernel/out/arch/arm64/boot/Image*
+            kernel/out/arch/arm64/boot/dtb*
