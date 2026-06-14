@@ -22,4 +22,5 @@ jobs:
           anykernel3: true
           ksu: true
           ksu-other: true
-          ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra
+          ksu-url: https://github.com/SukiSU-Ultra/SukiSU-Ultra/tree/builtin
+          release: true
