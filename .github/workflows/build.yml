@@ -20,11 +20,12 @@ jobs:
             device-tree-compiler cpio kmod \
             gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi
 
-      - name: Install Clang
+      - name: Download Official AOSP Clang
         run: |
-          wget https://github.com/ZyCromerZ/Clang/releases/latest/download/Clang-20.0.0.tar.gz
-          mkdir clang
-          tar -xf Clang-20.0.0.tar.gz -C clang --strip-components=1
+          mkdir -p clang
+          wget -O clang.tar.gz \
+            https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz
+          tar -xf clang.tar.gz -C clang
 
       - name: Build Defconfig
         run: |
