@@ -13,7 +13,7 @@ jobs:
         with:
           kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
           kernel-branch: lineage-23.2
-          config: vendor/lito-perf_defconfig
+          config: gauguin_defconfig
           arch: arm64
           aosp-gcc: true
           aosp-clang: true
