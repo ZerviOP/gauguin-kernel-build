@@ -1,4 +1,4 @@
-name: CI
+name: CI KernelSU
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ jobs:
       - name: Build
         uses: dabao1955/kernel_build_action@main
         with:
-          kernel-url: https://github.com/ZerviOP/android_kernel_xiaomi_gauguin
+          kernel-url: https://github.com/bib56717-eng/android_kernel_xiaomi_gauguin
           kernel-branch: lineage-23.2
           config: gauguin_defconfig
           arch: arm64
