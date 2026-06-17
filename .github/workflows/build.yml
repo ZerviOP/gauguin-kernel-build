@@ -21,4 +21,5 @@ jobs:
           anykernel3: true
           ksu: true
           ksu-version: main
+          ksu-other: https://github.com/rsuntk/KernelSU
           
