@@ -20,6 +20,6 @@ jobs:
           aosp-clang-version: r547379     
           anykernel3: true
           ksu: true
-          ksu-version: main
-          ksu-other: https://github.com/rsuntk/KernelSU
+          ksu-other: true
+          ksu-url: https://github.com/rsuntk/KernelSU
           
